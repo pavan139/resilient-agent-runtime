@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "id": "10",
+  "repository_name": "resilient-agent-runtime",
+  "title": "Fault-Tolerant Agent Runtime",
+  "package": "resilient_runtime",
+  "focus": "Two-database transactional outbox/inbox, fenced delivery, payload-bound deduplication, admission control, crash recovery",
+  "layout": {
+    "docs_root": "operations",
+    "tests_root": "verification",
+    "tools_root": "dev",
+    "config_root": "workflows",
+    "examples_root": "replays",
+    "verifier": "dev/check_runtime.py",
+    "source_roots": [
+      "src"
+    ],
+    "documents": {
+      "architecture": "operations/commit-boundaries.md",
+      "design": "operations/outbox-protocol.md",
+      "review": "operations/failure-regressions.md",
+      "experiments": "operations/fault-scenarios.md",
+      "publishing": "operations/distributing-the-runtime.md",
+      "validation": "operations/verified-build.md",
+      "depth": "operations/ack-gap-results.md"
+    }
+  }
+}
