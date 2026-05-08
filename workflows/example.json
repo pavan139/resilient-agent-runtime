@@ -1,0 +1,9 @@
+{
+  "workflow_id": "fictional-demo",
+  "actions": [
+    {"action_id": "credit-a", "tool": "credit_demo_account", "account": "demo", "amount": 10},
+    {"action_id": "credit-b", "tool": "credit_demo_account", "account": "demo", "amount": 7}
+  ],
+  "limits": {"max_attempts": 3, "max_actions": 32, "action_timeout_seconds": 1, "run_timeout_seconds": 5, "base_backoff_seconds": 0.1, "lease_seconds": 10},
+  "note": "Fictional units in SQLite; no real financial or external actions. max_attempts is persisted at submission and cannot be widened by a restarted worker. Deadline checks are cooperative and repeated immediately before COMMIT."
+}
