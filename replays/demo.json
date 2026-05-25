@@ -1,0 +1,165 @@
+{
+  "passed": true,
+  "initial": {
+    "workflow_id": "example",
+    "runtime_version": "local-runtime-v2",
+    "status": "pending",
+    "checkpoint": 1,
+    "next_run_at": 0.0,
+    "lease_epoch": 1,
+    "lease_expires": 1700000010.0,
+    "lease_active": true,
+    "max_attempts": 3,
+    "event_count": 4,
+    "trace_truncated": false,
+    "stop_reason": "simulated_crash",
+    "steps": [
+      {
+        "position": 0,
+        "attempts": 1,
+        "status": "completed"
+      },
+      {
+        "position": 1,
+        "attempts": 0,
+        "status": "pending"
+      }
+    ],
+    "ledger_count": 1,
+    "accounts": {
+      "demo": 10
+    },
+    "events": [
+      {
+        "event_id": 1,
+        "timestamp": 1700000000.0,
+        "kind": "submitted",
+        "action_count": 2,
+        "plan_hash": "cd988adddc519de0f4a37b20a68cdaf579e97bd51197173eb3b5840327c74070",
+        "version": "local-runtime-v2"
+      },
+      {
+        "event_id": 2,
+        "timestamp": 1700000000.0,
+        "kind": "lease_acquired",
+        "checkpoint": 0,
+        "lease_epoch": 1
+      },
+      {
+        "event_id": 3,
+        "timestamp": 1700000000.0,
+        "kind": "attempt_started",
+        "action_hash": "ebc1081f7238d95081ed64b4472803160520e3d84c3e92c5ba746b9b50a4384a",
+        "attempt": 1,
+        "lease_epoch": 1,
+        "position": 0,
+        "tool": "credit_demo_account"
+      },
+      {
+        "event_id": 4,
+        "timestamp": 1700000000.0,
+        "kind": "action_committed",
+        "action_hash": "ebc1081f7238d95081ed64b4472803160520e3d84c3e92c5ba746b9b50a4384a",
+        "attempt": 1,
+        "duplicate": false,
+        "lease_epoch": 1,
+        "position": 0
+      }
+    ]
+  },
+  "final": {
+    "workflow_id": "example",
+    "runtime_version": "local-runtime-v2",
+    "status": "completed",
+    "checkpoint": 2,
+    "next_run_at": 0.0,
+    "lease_epoch": 2,
+    "lease_expires": 0.0,
+    "lease_active": false,
+    "max_attempts": 3,
+    "event_count": 7,
+    "trace_truncated": false,
+    "stop_reason": "completed",
+    "steps": [
+      {
+        "position": 0,
+        "attempts": 1,
+        "status": "completed"
+      },
+      {
+        "position": 1,
+        "attempts": 1,
+        "status": "completed"
+      }
+    ],
+    "ledger_count": 2,
+    "accounts": {
+      "demo": 17
+    },
+    "events": [
+      {
+        "event_id": 1,
+        "timestamp": 1700000000.0,
+        "kind": "submitted",
+        "action_count": 2,
+        "plan_hash": "cd988adddc519de0f4a37b20a68cdaf579e97bd51197173eb3b5840327c74070",
+        "version": "local-runtime-v2"
+      },
+      {
+        "event_id": 2,
+        "timestamp": 1700000000.0,
+        "kind": "lease_acquired",
+        "checkpoint": 0,
+        "lease_epoch": 1
+      },
+      {
+        "event_id": 3,
+        "timestamp": 1700000000.0,
+        "kind": "attempt_started",
+        "action_hash": "ebc1081f7238d95081ed64b4472803160520e3d84c3e92c5ba746b9b50a4384a",
+        "attempt": 1,
+        "lease_epoch": 1,
+        "position": 0,
+        "tool": "credit_demo_account"
+      },
+      {
+        "event_id": 4,
+        "timestamp": 1700000000.0,
+        "kind": "action_committed",
+        "action_hash": "ebc1081f7238d95081ed64b4472803160520e3d84c3e92c5ba746b9b50a4384a",
+        "attempt": 1,
+        "duplicate": false,
+        "lease_epoch": 1,
+        "position": 0
+      },
+      {
+        "event_id": 5,
+        "timestamp": 1700000011.0,
+        "kind": "lease_acquired",
+        "checkpoint": 1,
+        "lease_epoch": 2
+      },
+      {
+        "event_id": 6,
+        "timestamp": 1700000011.0,
+        "kind": "attempt_started",
+        "action_hash": "f65fa2711ee52d9a4f671090d20280af00706083c0fbc4fb2b42af8dd4ca11b0",
+        "attempt": 1,
+        "lease_epoch": 2,
+        "position": 1,
+        "tool": "credit_demo_account"
+      },
+      {
+        "event_id": 7,
+        "timestamp": 1700000011.0,
+        "kind": "action_committed",
+        "action_hash": "f65fa2711ee52d9a4f671090d20280af00706083c0fbc4fb2b42af8dd4ca11b0",
+        "attempt": 1,
+        "duplicate": false,
+        "lease_epoch": 2,
+        "position": 1
+      }
+    ],
+    "lease_was_respected": true
+  }
+}
