@@ -1,0 +1,78 @@
+{
+  "experiment": "two-database ACK gap",
+  "databases_per_delivery": 2,
+  "transport": "in-process receiver adapter; independent SQLite transactions",
+  "passed": true,
+  "initial_sender": {
+    "states": {
+      "inflight": 1
+    },
+    "reserved": 0,
+    "messages": [
+      {
+        "message_id": "ae458eee905544e38aad82a55d4c3fe2:wf:one",
+        "status": "inflight",
+        "attempts": 1,
+        "retry_ceiling": 5,
+        "lease_epoch": 1,
+        "lease_expires": 1700000010.0,
+        "next_attempt_at": 0.0,
+        "last_error": null,
+        "payload_hash": "3c49b1cdf8312a1f4bb86fd97d78b9ea6f7093eac7c9983f52884fb7c4179eb0"
+      }
+    ],
+    "message_count": 1,
+    "truncated": false
+  },
+  "initial_receiver": {
+    "inbox_count": 1,
+    "accounts": {
+      "demo": 7
+    }
+  },
+  "retry": {
+    "message_id": "ae458eee905544e38aad82a55d4c3fe2:wf:one",
+    "attempt": 2,
+    "lease_epoch": 2,
+    "status": "delivered",
+    "delivered": true,
+    "receiver_duplicate": true
+  },
+  "final_sender": {
+    "states": {
+      "delivered": 1
+    },
+    "reserved": 0,
+    "messages": [
+      {
+        "message_id": "ae458eee905544e38aad82a55d4c3fe2:wf:one",
+        "status": "delivered",
+        "attempts": 2,
+        "retry_ceiling": 5,
+        "lease_epoch": 2,
+        "lease_expires": 0.0,
+        "next_attempt_at": 0.0,
+        "last_error": null,
+        "payload_hash": "3c49b1cdf8312a1f4bb86fd97d78b9ea6f7093eac7c9983f52884fb7c4179eb0"
+      }
+    ],
+    "message_count": 1,
+    "truncated": false
+  },
+  "final_receiver": {
+    "inbox_count": 1,
+    "accounts": {
+      "demo": 7
+    }
+  },
+  "sender_audit": {
+    "workflow_id": "wf",
+    "valid": true,
+    "violations": [],
+    "step_count": 1,
+    "ledger_count": 1,
+    "checkpoint": 1,
+    "scope": "workflow checkpoint, step statuses, retry ceiling, and local ledger binding; not external effects or global account conservation; committed enqueue actions also bind to the sender outbox, not receiver outcomes"
+  },
+  "uncertain_sender_outcome": false
+}
