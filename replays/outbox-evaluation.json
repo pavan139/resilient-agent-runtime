@@ -1,0 +1,500 @@
+{
+  "dataset_version": "transactional-outbox-inbox-v1",
+  "dataset_sha256": "4218b65da93230f68b7642b71d6b33c738bd42c661aec426d3771a5dbf7d0db1",
+  "passed": 12,
+  "total": 12,
+  "cases": [
+    {
+      "id": "atomic_sender_intent",
+      "passed": true,
+      "before": {
+        "workflow": {
+          "workflow_id": "wf",
+          "runtime_version": "local-runtime-v2",
+          "status": "running",
+          "checkpoint": 0,
+          "next_run_at": 0.0,
+          "lease_epoch": 1,
+          "lease_expires": 1700000010.0,
+          "lease_active": true,
+          "max_attempts": 3,
+          "event_count": 3,
+          "trace_truncated": false,
+          "stop_reason": "running",
+          "steps": [
+            {
+              "position": 0,
+              "attempts": 1,
+              "status": "running"
+            }
+          ],
+          "ledger_count": 0,
+          "accounts": {},
+          "events": [
+            {
+              "event_id": 1,
+              "timestamp": 1700000000.0,
+              "kind": "submitted",
+              "action_count": 1,
+              "plan_hash": "093483b19434e1dbed6d2889612219aa6082569ced056f0cc79852867768ff92",
+              "version": "local-runtime-v2"
+            },
+            {
+              "event_id": 2,
+              "timestamp": 1700000000.0,
+              "kind": "lease_acquired",
+              "checkpoint": 0,
+              "lease_epoch": 1
+            },
+            {
+              "event_id": 3,
+              "timestamp": 1700000000.0,
+              "kind": "attempt_started",
+              "action_hash": "f3f8eed4a0eb276348c8145c817cf9b6f1c708ff8d3a9cfe80a37612ca29065c",
+              "attempt": 1,
+              "lease_epoch": 1,
+              "position": 0,
+              "tool": "enqueue_credit"
+            }
+          ]
+        },
+        "outbox": {
+          "states": {},
+          "reserved": 1,
+          "messages": [],
+          "message_count": 0,
+          "truncated": false
+        }
+      },
+      "after": {
+        "workflow_id": "wf",
+        "runtime_version": "local-runtime-v2",
+        "status": "completed",
+        "checkpoint": 1,
+        "next_run_at": 0.0,
+        "lease_epoch": 2,
+        "lease_expires": 0.0,
+        "lease_active": false,
+        "max_attempts": 3,
+        "event_count": 6,
+        "trace_truncated": false,
+        "stop_reason": "completed",
+        "steps": [
+          {
+            "position": 0,
+            "attempts": 2,
+            "status": "completed"
+          }
+        ],
+        "ledger_count": 1,
+        "accounts": {},
+        "events": [
+          {
+            "event_id": 1,
+            "timestamp": 1700000000.0,
+            "kind": "submitted",
+            "action_count": 1,
+            "plan_hash": "093483b19434e1dbed6d2889612219aa6082569ced056f0cc79852867768ff92",
+            "version": "local-runtime-v2"
+          },
+          {
+            "event_id": 2,
+            "timestamp": 1700000000.0,
+            "kind": "lease_acquired",
+            "checkpoint": 0,
+            "lease_epoch": 1
+          },
+          {
+            "event_id": 3,
+            "timestamp": 1700000000.0,
+            "kind": "attempt_started",
+            "action_hash": "f3f8eed4a0eb276348c8145c817cf9b6f1c708ff8d3a9cfe80a37612ca29065c",
+            "attempt": 1,
+            "lease_epoch": 1,
+            "position": 0,
+            "tool": "enqueue_credit"
+          },
+          {
+            "event_id": 4,
+            "timestamp": 1700000011.0,
+            "kind": "lease_acquired",
+            "checkpoint": 0,
+            "lease_epoch": 2
+          },
+          {
+            "event_id": 5,
+            "timestamp": 1700000011.0,
+            "kind": "attempt_started",
+            "action_hash": "f3f8eed4a0eb276348c8145c817cf9b6f1c708ff8d3a9cfe80a37612ca29065c",
+            "attempt": 2,
+            "lease_epoch": 2,
+            "position": 0,
+            "tool": "enqueue_credit"
+          },
+          {
+            "event_id": 6,
+            "timestamp": 1700000011.0,
+            "kind": "action_committed",
+            "action_hash": "f3f8eed4a0eb276348c8145c817cf9b6f1c708ff8d3a9cfe80a37612ca29065c",
+            "attempt": 2,
+            "duplicate": false,
+            "lease_epoch": 2,
+            "position": 0
+          }
+        ]
+      },
+      "outbox": {
+        "states": {
+          "pending": 1
+        },
+        "reserved": 0,
+        "messages": [
+          {
+            "message_id": "4ec7026ddd65467798c5abbc45f04b0f:wf:one",
+            "status": "pending",
+            "attempts": 0,
+            "retry_ceiling": 5,
+            "lease_epoch": 0,
+            "lease_expires": 0.0,
+            "next_attempt_at": 0.0,
+            "last_error": null,
+            "payload_hash": "ece9b09d27d32ab62cd3b5ca89d3b27b56d06a672d1de4302e57396c7d3bcbf1"
+          }
+        ],
+        "message_count": 1,
+        "truncated": false
+      },
+      "sender_audit": {
+        "workflow_id": "wf",
+        "valid": true,
+        "violations": [],
+        "step_count": 1,
+        "ledger_count": 1,
+        "checkpoint": 1,
+        "scope": "workflow checkpoint, step statuses, retry ceiling, and local ledger binding; not external effects or global account conservation; committed enqueue actions also bind to the sender outbox, not receiver outcomes"
+      }
+    },
+    {
+      "id": "receiver_rollback",
+      "passed": true,
+      "before": {
+        "inbox_count": 0,
+        "accounts": {}
+      },
+      "after": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      },
+      "delivery": {
+        "message_id": "8579d6aac44f4f7d900a12802afffa8d:wf:one",
+        "attempt": 2,
+        "lease_epoch": 2,
+        "status": "delivered",
+        "delivered": true,
+        "receiver_duplicate": false
+      }
+    },
+    {
+      "id": "ack_gap_restart",
+      "passed": true,
+      "initial_sender": {
+        "states": {
+          "inflight": 1
+        },
+        "reserved": 0,
+        "messages": [
+          {
+            "message_id": "95be504c406a4781944f3afea43c797d:wf:one",
+            "status": "inflight",
+            "attempts": 1,
+            "retry_ceiling": 5,
+            "lease_epoch": 1,
+            "lease_expires": 1700000010.0,
+            "next_attempt_at": 0.0,
+            "last_error": null,
+            "payload_hash": "f933871863679230f0a7f739c4c18c3956ccc7ae22c87f955769540b76f62a5e"
+          }
+        ],
+        "message_count": 1,
+        "truncated": false
+      },
+      "initial_receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      },
+      "retry": {
+        "message_id": "95be504c406a4781944f3afea43c797d:wf:one",
+        "attempt": 2,
+        "lease_epoch": 2,
+        "status": "delivered",
+        "delivered": true,
+        "receiver_duplicate": true
+      },
+      "final_sender": {
+        "states": {
+          "delivered": 1
+        },
+        "reserved": 0,
+        "messages": [
+          {
+            "message_id": "95be504c406a4781944f3afea43c797d:wf:one",
+            "status": "delivered",
+            "attempts": 2,
+            "retry_ceiling": 5,
+            "lease_epoch": 2,
+            "lease_expires": 0.0,
+            "next_attempt_at": 0.0,
+            "last_error": null,
+            "payload_hash": "f933871863679230f0a7f739c4c18c3956ccc7ae22c87f955769540b76f62a5e"
+          }
+        ],
+        "message_count": 1,
+        "truncated": false
+      },
+      "final_receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      },
+      "sender_audit": {
+        "workflow_id": "wf",
+        "valid": true,
+        "violations": [],
+        "step_count": 1,
+        "ledger_count": 1,
+        "checkpoint": 1,
+        "scope": "workflow checkpoint, step statuses, retry ceiling, and local ledger binding; not external effects or global account conservation; committed enqueue actions also bind to the sender outbox, not receiver outcomes"
+      },
+      "uncertain_sender_outcome": false
+    },
+    {
+      "id": "outage_restart",
+      "passed": true,
+      "outage": {
+        "message_id": "640883ebe47e46c4bb919072e88ba4aa:wf:one",
+        "attempt": 1,
+        "lease_epoch": 1,
+        "status": "pending",
+        "delivered": false,
+        "error": "receiver_unavailable"
+      },
+      "before_due": {
+        "status": "idle",
+        "delivered": false
+      },
+      "recovered": {
+        "message_id": "640883ebe47e46c4bb919072e88ba4aa:wf:one",
+        "attempt": 2,
+        "lease_epoch": 2,
+        "status": "delivered",
+        "delivered": true,
+        "receiver_duplicate": false
+      },
+      "receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      }
+    },
+    {
+      "id": "concurrent_duplicate_delivery",
+      "passed": true,
+      "delivery_calls": 8,
+      "duplicate_receipts": 7,
+      "receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      }
+    },
+    {
+      "id": "payload_conflict",
+      "passed": true,
+      "conflict_rejected": true,
+      "receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      }
+    },
+    {
+      "id": "stale_ack_fenced",
+      "passed": true,
+      "stale_ack_accepted": false,
+      "current_ack_accepted": true,
+      "receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      }
+    },
+    {
+      "id": "admission_race",
+      "passed": true,
+      "accepted": 1,
+      "outbox": {
+        "states": {},
+        "reserved": 1,
+        "messages": [],
+        "message_count": 0,
+        "truncated": false
+      }
+    },
+    {
+      "id": "bounded_retry_exhaustion",
+      "passed": true,
+      "attempts": [
+        {
+          "message_id": "506c67be88084dccb956741c1503bfd1:wf:one",
+          "attempt": 1,
+          "lease_epoch": 1,
+          "status": "pending",
+          "delivered": false,
+          "error": "receiver_unavailable"
+        },
+        {
+          "message_id": "506c67be88084dccb956741c1503bfd1:wf:one",
+          "attempt": 2,
+          "lease_epoch": 2,
+          "status": "dead_letter",
+          "delivered": false,
+          "error": "receiver_unavailable"
+        }
+      ],
+      "after_ceiling": {
+        "status": "idle",
+        "delivered": false
+      },
+      "receiver": {
+        "inbox_count": 0,
+        "accounts": {}
+      }
+    },
+    {
+      "id": "uncertain_last_ack",
+      "passed": true,
+      "initial_sender": {
+        "states": {
+          "inflight": 1
+        },
+        "reserved": 0,
+        "messages": [
+          {
+            "message_id": "eb444a46972f46a589b772bc18798b8a:wf:one",
+            "status": "inflight",
+            "attempts": 1,
+            "retry_ceiling": 1,
+            "lease_epoch": 1,
+            "lease_expires": 1700000010.0,
+            "next_attempt_at": 0.0,
+            "last_error": null,
+            "payload_hash": "662ee1edb68bc0bf45d6d7d4a5194d020d87d008c66f5bd56714548c756580a9"
+          }
+        ],
+        "message_count": 1,
+        "truncated": false
+      },
+      "initial_receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      },
+      "retry": {
+        "status": "idle",
+        "delivered": false
+      },
+      "final_sender": {
+        "states": {
+          "dead_letter": 1
+        },
+        "reserved": 0,
+        "messages": [
+          {
+            "message_id": "eb444a46972f46a589b772bc18798b8a:wf:one",
+            "status": "dead_letter",
+            "attempts": 1,
+            "retry_ceiling": 1,
+            "lease_epoch": 1,
+            "lease_expires": 0.0,
+            "next_attempt_at": 0.0,
+            "last_error": "delivery_attempts_exhausted",
+            "payload_hash": "662ee1edb68bc0bf45d6d7d4a5194d020d87d008c66f5bd56714548c756580a9"
+          }
+        ],
+        "message_count": 1,
+        "truncated": false
+      },
+      "final_receiver": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      },
+      "sender_audit": {
+        "workflow_id": "wf",
+        "valid": true,
+        "violations": [],
+        "step_count": 1,
+        "ledger_count": 1,
+        "checkpoint": 1,
+        "scope": "workflow checkpoint, step statuses, retry ceiling, and local ledger binding; not external effects or global account conservation; committed enqueue actions also bind to the sender outbox, not receiver outcomes"
+      },
+      "uncertain_sender_outcome": true
+    },
+    {
+      "id": "real_process_death_ack_gap",
+      "passed": true,
+      "process_exit": 29,
+      "receiver_before_restart": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      },
+      "receiver_after_restart": {
+        "inbox_count": 1,
+        "accounts": {
+          "demo": 7
+        }
+      },
+      "retried": {
+        "message_id": "724eccb8024c447d87216a90b99aeddd:wf:one",
+        "attempt": 2,
+        "lease_epoch": 2,
+        "status": "delivered",
+        "delivered": true,
+        "receiver_duplicate": true
+      }
+    },
+    {
+      "id": "independent_sender_namespaces",
+      "passed": true,
+      "receiver": {
+        "inbox_count": 2,
+        "accounts": {
+          "demo": 14
+        }
+      }
+    }
+  ],
+  "scope": "real separate SQLite commits, fictional credits, in-process transport, real threads and one abrupt child-process exit",
+  "limitations": [
+    "At-least-once retries plus payload-bound receiver deduplication, not a universal distributed exactly-once guarantee.",
+    "Finite retries can dead-letter an unacknowledged message whose receiver effect already committed.",
+    "Durable inbox retention, stable sender namespace/message identity, eventual availability and continued scheduling are assumptions; no network transport is benchmarked."
+  ],
+  "usage": {
+    "model_calls": 0,
+    "provider_calls": 0
+  }
+}
