@@ -1,5 +1,16 @@
 # Resilient agent runtime
 
+<!-- at-a-glance -->
+[![ci](https://github.com/pavan139/resilient-agent-runtime/actions/workflows/ci.yml/badge.svg)](https://github.com/pavan139/resilient-agent-runtime/actions/workflows/ci.yml) ![license: MIT](https://img.shields.io/badge/license-MIT-blue)
+
+| | |
+| --- | --- |
+| **Problem** | When an agent crashes between a side effect and its acknowledgement, a naive retry runs the effect twice. |
+| **Result** | Transactional outbox/inbox with payload-bound deduplication passes **12/12** defined failure cases. |
+| **Try it** | `pip install -e .` then `python -m resilient_runtime outbox-demo --output artifacts/ack-gap.json` |
+<!-- /at-a-glance -->
+
+
 The receiver commits a credit. The sender dies before recording the acknowledgement. On restart, should the command run again?
 
 This implementation redelivers the same message. The receiver checks its retained inbox key and payload, then returns a duplicate receipt without adding another credit. Sender and receiver use separate SQLite databases; there is no transaction spanning them.
